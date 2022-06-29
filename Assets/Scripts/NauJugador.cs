@@ -25,8 +25,21 @@ public class NauJugador : MonoBehaviour
 
     private void MoureNau(Vector2 movimentInput)
     {
+        // Comprovacions límits pantalla:
+        // ==============================
+        Vector2 minPantalla = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
+        Vector2 maxPantalla = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
+
+        minPantalla.x += 0.65f;
+        maxPantalla.x -= 0.65f;
+        minPantalla.y += 0.65f;
+        maxPantalla.y -= 0.65f;
+
         Vector2 novaPos = transform.position;
         novaPos += movimentInput * _velNau * Time.deltaTime;
+
+        novaPos.x = Mathf.Clamp(novaPos.x, minPantalla.x, maxPantalla.x);
+        novaPos.y = Mathf.Clamp(novaPos.y, minPantalla.y, maxPantalla.y);
 
         transform.position = novaPos;
     }
