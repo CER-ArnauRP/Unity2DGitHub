@@ -6,6 +6,10 @@ public class NauJugador : MonoBehaviour
 {
     [SerializeField] private float _velNau = 8f;
 
+    [SerializeField] GameObject _cano1;
+    [SerializeField] GameObject _cano2;
+    [SerializeField] GameObject ProjectilPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +25,20 @@ public class NauJugador : MonoBehaviour
         Vector2 movimentInput = new Vector2(inputX, inputY).normalized;
 
         MoureNau(movimentInput);
+
+        DispararProjectils();
+    }
+
+    private void DispararProjectils()
+    {
+        if (Input.GetKeyDown("space"))
+        {
+            GameObject projectil1 = Instantiate(ProjectilPrefab);
+            projectil1.transform.position = _cano1.transform.position;
+
+            GameObject projectil2 = Instantiate(ProjectilPrefab);
+            projectil2.transform.position = _cano2.transform.position;
+        }
     }
 
     private void MoureNau(Vector2 movimentInput)
